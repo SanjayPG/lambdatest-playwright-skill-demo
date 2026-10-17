@@ -1,0 +1,24 @@
+{
+  "name": "saucedemo-playwright-framework",
+  "version": "1.0.0",
+  "description": "Production-grade Playwright test framework for SauceDemo — runs locally and on LambdaTest cloud",
+  "private": true,
+  "scripts": {
+    "test":             "playwright test",
+    "test:local":       "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:chromium":    "playwright test --project=chromium",
+    "test:positive":    "playwright test tests/order-flow.positive.spec.ts --project=chromium",
+    "test:negative":    "playwright test tests/order-flow.negative.spec.ts --project=chromium",
+    "test:cloud":       "playwright test --project=\"chrome:latest:Windows 11@lambdatest\" --project=\"MicrosoftEdge:latest:Windows 10@lambdatest\" --project=\"pw-webkit:latest:macOS Sonoma@lambdatest\" --project=\"pw-firefox:latest:macOS Ventura@lambdatest\"",
+    "test:cloud:chrome": "playwright test --project=\"chrome:latest:Windows 11@lambdatest\"",
+    "validate":         "python .github/skills/agent-skills/playwright-skill/scripts/validate-config.py playwright.config.ts",
+    "report":           "playwright show-report",
+    "lint":             "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.0.0",
+    "dotenv": "^16.4.0",
+    "typescript": "^5.4.0"
+  }
+}

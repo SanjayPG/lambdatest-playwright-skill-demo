@@ -1,0 +1,10 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+test-results-cloud/
+.env
+*.local
+
+# Agent skills are cloned separately, see README
+.github/skills/

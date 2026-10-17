@@ -1,0 +1,134 @@
+# Playwright Test Automation Project
+
+This project uses Playwright for E2E browser testing with TestMu AI cloud integration.
+
+## Project Structure
+
+```
+playwright-framework/
+├── src/
+│   ├── pages/
+│   │   ├── BasePage.ts              # Base page with common utilities
+│   │   ├── LoginPage.ts             # Login page object
+│   │   ├── InventoryPage.ts         # Products/Inventory page object
+│   │   ├── CartPage.ts              # Shopping cart page object
+│   │   ├── CheckoutPage.ts          # Checkout page object
+│   │   └── ConfirmationPage.ts      # Order confirmation page object
+│   ├── fixtures/
+│   │   ├── index.ts                 # Custom fixtures with page objects
+│   │   └── lambdatest-setup.ts      # LambdaTest cloud fixture (local + cloud)
+│   ├── data/
+│   │   └── testData.ts              # Centralized test data (users, products, checkout info)
+│   └── utils/                       # Utility functions (currently empty)
+├── tests/
+│   ├── order-flow.positive.spec.ts  # Positive order flow tests
+│   └── order-flow.negative.spec.ts  # Negative order flow tests
+├── test-results/                    # Test execution results
+├── playwright.config.ts             # Playwright configuration
+├── package.json                     # Dependencies
+├── tsconfig.json                    # TypeScript configuration
+├── Jenkinsfile                      # Jenkins CI/CD pipeline
+└── .env.example                     # Example environment variables
+```
+
+## Quick Commands
+
+### Running Tests
+
+```bash
+# Run all tests locally
+npx playwright test
+
+# Run tests in UI mode (interactive)
+npx playwright test --ui
+
+# Run tests in debug mode
+npx playwright test --debug
+
+# Run tests in headed mode
+npx playwright test --headed
+
+# Run specific browser
+npx playwright test --project=chromium
+npx playwright test --project=firefox
+npx playwright test --project=webkit
+
+# Run specific test file
+npx playwright test tests/order-flow.positive.spec.ts
+
+# Run tests matching a pattern
+npx playwright test order-flow
+```
+
+### TestMu AI Cloud Execution
+
+Set environment variables:
+
+**Linux/macOS:**
+```bash
+export LT_USERNAME="your-username"
+export LT_ACCESS_KEY="your-access-key"
+```
+
+**Windows:**
+```cmd
+set LT_USERNAME="your-username"
+set LT_ACCESS_KEY="your-access-key"
+```
+
+Run tests on cloud:
+```bash
+# Run on Chrome (Windows 11)
+npx playwright test --project="chrome:latest:Windows 11@lambdatest"
+
+# Run on Edge (macOS)
+npx playwright test --project="MicrosoftEdge:latest:macOS Sonoma@lambdatest"
+
+# Run on Firefox (Linux)
+npx playwright test --project="firefox:latest:Linux@lambdatest"
+```
+
+### Test Reports
+
+```bash
+# Show HTML report
+npx playwright show-report
+
+# Generate tests using codegen
+npx playwright codegen https://www.saucedemo.com
+
+# Update visual snapshots
+npx playwright test --update-snapshots
+```
+
+## Test Data
+
+All test data is centralized in `src/data/testData.ts`:
+
+- **USERS**: Test user credentials (standard_user, locked_out_user, invalid_user)
+- **CHECKOUT_INFO**: Checkout form data (valid, missing fields)
+- **PRODUCTS**: Product identifiers (backpack, bikeLight, boltTShirt, fleeceJacket)
+- **PRODUCT_NAMES**: Human-readable product names
+- **ERROR_MESSAGES**: Expected error messages for negative tests
+
+## Page Objects
+
+All page objects extend `BasePage` and provide:
+- Locators for page elements using accessible selectors
+- Action methods (login, addToCart, checkout, etc.)
+- Assertion methods (expectOnPage, expectVisible, etc.)
+
+## Custom Fixtures
+
+Tests use custom fixtures from `src/fixtures/index.ts`:
+- `loginPage`: LoginPage instance
+- `inventoryPage`: InventoryPage instance
+- `cartPage`: CartPage instance
+- `checkoutPage`: CheckoutPage instance
+- `confirmationPage`: ConfirmationPage instance
+
+The fixture automatically handles local vs cloud execution based on project name.
+
+## CI/CD
+
+Jenkins pipeline configuration is available in `Jenkinsfile` for automated test execution.
