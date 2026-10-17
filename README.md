@@ -528,7 +528,7 @@ View results at: [LambdaTest Automation Dashboard](https://automation.lambdatest
 
 ## License
 
-MIT License
+[MIT](LICENSE)
 
 ## Resources
 
